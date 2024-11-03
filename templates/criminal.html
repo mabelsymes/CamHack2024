@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DANGEROUS INDIVIDUAL IDENTIFIED</title>
+    <style>
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('{{ url_for("static", filename="resources/network-background.jpg") }}');
+            background-size: cover;
+            background-position: center; 
+            opacity: 0.5; 
+            z-index: 0; 
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 10px;
+            padding: 50px;
+            column-gap: 20px;
+            z-index: 1;
+        }
+        .heading {
+            grid-row: 1;
+            grid-column-start: 1;
+            grid-column-end: 5;
+            z-index: 1;
+        }   
+        .criminal-image {
+            grid-row-start: 2;
+            grid-row-end: 4;
+            grid-column-start: 1;
+            grid-column-end: 2;
+            z-index: 1;
+        }
+        .world-map {
+            display: flex;
+            grid-row: 2;
+            grid-column: 4;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+        .world-map-caption {
+            grid-row: 3;
+            grid-column: 4;
+            z-index: 1;
+        }
+        .profile-pic {
+            grid-row-start: 2;
+            grid-row-end: 4;
+            grid-column: 3;
+            z-index: 1;
+        }
+        .criminal-captured {
+            grid-row: 4;
+            grid-column: 1;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000000;
+            z-index: 1;
+        }
+
+        h1{
+            color: #F0F0F0;
+            font-size: 3em;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            z-index: 1;
+        }
+        p {
+            font-size: 24px;
+            color: #cccccc;
+            font-family: "Monaco", "Courier New", monospace;
+            text-align: center;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <div class="background"></div>
+    <div class="grid-container">
+        <div class="heading">
+            <h1>DANGEROUS INDIVIDUAL IDENTIFIED!</h1>
+        </div>
+        <div class="criminal-image">
+            <img id="criminal-image-1" src="{{ url_for('static', filename='uploads/computer-vision.jpg') }}" alt="dangerous individual" height="300px" width="auto">
+            <script>
+                setInterval(() => {
+                    const img = document.getElementById('criminal-image-1');
+                    img.src = "{{ url_for('static', filename='uploads/computer-vision.jpg') }}?" + new Date().getTime();
+                }, 200); 
+            </script>
+            <p>Live footage of criminal</p>
+        </div>
+        <div class="world-map">
+            <img src="{{ url_for('static', filename='resources/location.png') }}" alt="world map" width="400px" height="auto">
+        </div>
+        <div class="world-map-caption">
+            <p>Location: William Gates Building, University of Cambridge, United Kingdom</p>
+        </div>
+        <div class="profile-pic">
+            <img id="criminal-image-2" src="{{ url_for('static', filename='uploads/head.jpg') }}" alt="dangerous individual" height="200px" width="auto">
+            <script>
+                setInterval(() => {
+                    const img = document.getElementById('criminal-image-2');
+                    img.src = "{{ url_for('static', filename='uploads/head.jpg') }}?" + new Date().getTime();
+                }, 200);
+            </script>
+            <img id="criminal-image-3" src="{{ url_for('static', filename='uploads/boxes.jpg') }}" alt="dangerous individual" height="200px" width="auto">
+            <script>
+                setInterval(() => {
+                    const img = document.getElementById('criminal-image-3');
+                    img.src = "{{ url_for('static', filename='uploads/boxes.jpg') }}?" + new Date().getTime();
+                }, 200);
+            </script>
+        </div>
+        <div class="criminal-captured">
+            <script>
+                function goToIndexPage() {
+                    location.href = '{{ url_for("index") }}';
+                }
+            </script>
+            
+            <button onclick="goToIndexPage()">TARGET CAPTURED</button>
+        </div>
+    </div>
+
+
+
+    <audio id="warning-message">
+        <source src="{{ url_for('static', filename='resources/dangerous-individual-identified.mp3') }}" type="audio/mpeg">
+        Your browser does not support the audio tag.
+    </audio>
+    <script>
+        const audio = document.getElementById('warning-message');
+        document.body.addEventListener('click', () => {
+            audio.play();
+        }, { once: true }); 
+    </script>
+</body>
+</html>

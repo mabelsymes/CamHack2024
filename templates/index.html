@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telephone Box</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('{{ url_for("static", filename="resources/telephone-box.jpg") }}');
+            background-size: cover;
+            background-position: center; 
+            opacity: 0.5; 
+            z-index: 0; 
+        }
+    </style>
+</head>
+<body>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <div class="background"></div>
+
+    <button id="enable-sound">Enable Sound</button>
+    <p></p>
+    <p></p>
+    <audio id="audio" src="{{ url_for('static', filename='resources/old-phone-ringing.wav') }}" preload="auto"></audio>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+    <script>
+        // Connect to the WebSocket server
+        const socket = io('http://10.253.121.208:5000');
+
+        const audio = document.getElementById('audio');
+        audio.loop = true;
+        // Wait for user interaction to allow audio playback
+        document.getElementById('enable-sound').addEventListener('click', () => {
+            audio.play().then(() => {
+                audio.pause();  // Just ensure it can play, then pause it
+                console.log("Sound enabled by user.");
+                document.getElementById('enable-sound').style.display = 'none';  // Hide button after interaction
+            }).catch(error => {
+                console.error("Failed to enable sound:", error);
+            });
+        });
+
+        // Listen for the "play_sound" event from the server
+        socket.on('play_sound', () => {
+            console.log('Received play_sound event');
+            audio.play().catch(error => {
+                console.error("Playback failed:", error);
+            });
+        });
+
+    </script>
+
+    <img src="{{url_for('static', filename='resources/telephone-call.png')}}" alt="phone image" style="width: 350px; height: auto;">
+    <p></p>
+    <p></p>
+    <script>
+        function goToCriminalPage() {
+            location.href = '{{ url_for("criminal_page") }}';
+        }
+    </script>
+    
+    <button onclick="goToCriminalPage()">PICK UP</button>
+</body>
+</html>
