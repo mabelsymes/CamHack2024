@@ -1,4 +1,4 @@
-To run the web server run server.py
+To run the web server run 'server.py'
 
 Image credits:
 
