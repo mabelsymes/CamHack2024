@@ -41,4 +41,4 @@ def handle_send_image(data):
     print("WRITTEN IMAGE")
 
 if __name__ == '__main__':
-    socketio.run(app, host='10.253.121.208', port=5000, debug=True)
+    socketio.run(app, host='127.0.0.1', port=5000, debug=True)
