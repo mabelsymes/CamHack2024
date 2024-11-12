@@ -25,4 +25,4 @@ def connect_error(data):
     print("The connection failed:", data)
 
 # Connect to the Flask server
-sio.connect('http://10.253.121.208:5000')
+sio.connect('http://127.0.0.1:5000')
